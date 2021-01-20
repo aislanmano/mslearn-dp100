@@ -122,27 +122,27 @@ Now that you have used a *training pipeline* to train a model, you can create an
 3. Note that the inference pipeline assumes that new data will match the schema of the original training data, so the **diabetes dataset** dataset from the training pipeline is included. However, this input data includes the **Diabetic** label that the model predicts, which is unintuitive to include in new patient data for which a diabetes prediction has not yet been made.
 4. Delete the **diabetes dataset** dataset from the inference pipeline and replace it with an **Enter Data Manually** module from the **Data Input and Output** section; connecting it to the same **dataset** input of the **Apply Transformation** module as the **Web Service Input**. Then modify the settings of the **Enter Data Manually** module to use the following CSV input, which includes feature values without labels for three new patient observations:
 
-    ```CSV
-    PatientID,Pregnancies,PlasmaGlucose,DiastolicBloodPressure,TricepsThickness,SerumInsulin,BMI,DiabetesPedigree,Age
-    1882185,9,104,51,7,24,27.36983156,1.350472047,43
-    1662484,6,73,61,35,24,18.74367404,1.074147566,75
-    1228510,4,115,50,29,243,34.69215364,0.741159926,59
-    ```
+```CSV
+PatientID,Pregnancies,PlasmaGlucose,DiastolicBloodPressure,TricepsThickness,SerumInsulin,BMI,DiabetesPedigree,Age
+1882185,9,104,51,7,24,27.36983156,1.350472047,43
+1662484,6,73,61,35,24,18.74367404,1.074147566,75
+1228510,4,115,50,29,243,34.69215364,0.741159926,59
+```
 
 5. The inference pipeline includes the **Evaluate Model** module, which is not useful when predicting from new data, so delete this module.
 6. The output from the **Score Model** module includes all of the input features as well as the predicted label and probability score. To limit the output to only the prediction and probability, delete the connection between the **Score Model** module and the **Web Service Output**, add an **Execute Python Script** module from the **Python Language** section, connect the output from the **Score Model** module to the **Dataset1** (left-most) input of the **Execute Python Script**, and connect the output of the **Execute Python Script** module to the **Web Service Output**. Then modify the settings of the **Execute Python Script** module to use the following code (replacing all existing code):
 
-    ```Python
-    import pandas as pd
+```Python
+import pandas as pd
 
-    def azureml_main(dataframe1 = None, dataframe2 = None):
+def azureml_main(dataframe1 = None, dataframe2 = None):
 
-        scored_results = dataframe1[['PatientID', 'Scored Labels', 'Scored Probabilities']]
-        scored_results.rename(columns={'Scored Labels':'DiabetesPrediction',
-                                       'Scored Probabilities':'Probability'},
-                              inplace=True)
-        return scored_results
-    ```
+    scored_results = dataframe1[['PatientID', 'Scored Labels', 'Scored Probabilities']]
+    scored_results.rename(columns={'Scored Labels':'DiabetesPrediction',
+                                    'Scored Probabilities':'Probability'},
+                            inplace=True)
+    return scored_results
+```
 
 7. Verify that your pipeline looks similar to the following:
 
