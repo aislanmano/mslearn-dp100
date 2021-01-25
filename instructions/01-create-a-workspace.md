@@ -76,6 +76,10 @@ A lot of data science and machine learning experimentation is performed by runni
 4. When the command has completed, in the **My files** pane, click **&#8635;** to refresh the view and verify that a new **Users/mslearn-dp100** folder has been created. This folder contains multiple **.ipynb** notebook files.
 5. In the terminal pane, enter the following command to upgrade the Azure Machine Learning SDK and notebook widgets python packages to the latest version (these packages are used in most of the notebooks):
 
+> **BREAKING CHANGE Jan 25th 2021**
+>
+> Due to a breaking change in SDK version 1.21.0, do not run the following command - instead, use the version of the SDK that is installed on the Compute Instance by default (1.19.0).
+
     ```bash
     pip install --upgrade azureml-sdk azureml-widgets
     ```
