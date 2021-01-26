@@ -19,26 +19,26 @@ While you can use the **Notebooks** page in Azure Machine Learning studio to run
 1. In [Azure Machine Learning studio](https://ml.azure.com), view the **Compute** page for your workspace; and on the **Compute Instances** tab, start your compute instance if it is not already running.
 2. When the compute instance is running, click the **Jupyter** link to open the Jupyter home page in a new browser tab. Be sure to open *Jupyter* and not *JupyterLab*.
 
-## Install the Azure Machine Learning SDK
+## Verify the Azure Machine Learning SDK is Installed
 
-The Azure Machine Learning SDK is installed by default on your compute instance, but it is updated frequently; so follow these steps to upgrade to the latest release.
+The Azure Machine Learning SDK is installed by default on your compute instance. Follow these steps to verify the installation.
 
 1. In the Jupyter notebook environment, create a new **Terminal**. This will open a new tab with a command shell.
 2. Enter the following command to update the Azure ML SDK:
 
     ```bash
-    pip install --upgrade azureml-sdk
+    pip show azureml-sdk
     ```
 
-    You may see some warnings as the package dependencies are installed. You can ignore these.
+    Note the version of the SDK package installed.
 
-3. The **azureml-sdk** SDK package provides the most important libraries needed to work with Azure Machine Learning> However, there are some additional packages that contain other useful libraries not included in the main SDK package. Use the following command to install the **azureml-widgets** package, which contains libraries for displaying Azure Machine Learning information in notebooks:
+3. The **azureml-sdk** SDK package provides the most important libraries needed to work with Azure Machine Learning> However, there are some additional packages that contain other useful libraries not included in the main SDK package. Use the following command to verify that the **azureml-widgets** package, which contains libraries for displaying Azure Machine Learning information in notebooks, is also installed:
 
     ```bash
-    pip install --upgrade azureml-widgets
+    pip show azureml-widgets
     ```
 
-4. When the installation is complete, you can close the **Terminal** tab and return to the tab containing the Jupyter home page.
+4. Close the **Terminal** tab and return to the tab containing the Jupyter home page.
 
 > **More Information**: For more details about installing the Azure ML SDK and its optional components, see the [Azure ML SDK Documentation](https://docs.microsoft.com/python/api/overview/azure/ml/install?view=azure-ml-py).
 
